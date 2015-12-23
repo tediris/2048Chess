@@ -15,7 +15,7 @@ public class GameGrid extends Component {
 	int tileSize;
 	Tile[][] entityGrid;
 	Tile[][] oldGrid;
-	int[] randomChoice = {0, 1, 1, 2};
+	int[] randomChoice = {0, 1, 1, 2, 3};
 	Random rgen;
 
 	public GameGrid(Entity e, int width, int height) {
@@ -71,6 +71,9 @@ public class GameGrid extends Component {
 				break;
 			case Tile.BOW:
 				result = new Bow(this.entity.game);
+				break;
+			case Tile.SHIELD:
+				result = new Shield(this.entity.game);
 				break;
 			default:
 				result = null;

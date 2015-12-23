@@ -11,6 +11,7 @@ public class Tile extends Entity {
 	public static final int KING = 0;
 	public static final int ARROW = 1;
 	public static final int BOW = 2;
+	public static final int SHIELD = 3;
 
 	public Slider slider;
 	public GameGrid grid;
