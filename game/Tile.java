@@ -13,9 +13,13 @@ public class Tile extends Entity {
 	public static final int BOW = 2;
 	public static final int SHIELD = 3;
 
+	public static int[] BASIC = {Tile.SHIELD, Tile.ARROW, Tile.ARROW};
+	public static int[] DEFENDED = {Tile.ARROW};
+
 	public Slider slider;
 	public GameGrid grid;
 	public Stack<Tile> toDestroy;
+	public boolean removeOnUpdate = false;
 
 	public Tile(Game g, String imageName) {
 		super(g);
@@ -41,5 +45,9 @@ public class Tile extends Entity {
 			t.slider.yDest = this.slider.yDest;
 			new DestroyOnReach(t, this.slider.xDest, this.slider.yDest);
 		}
+	}
+
+	public void destroySelf() {
+		new DestroyOnReach(this, this.slider.xDest, this.slider.yDest);
 	}
 }

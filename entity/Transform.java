@@ -3,12 +3,16 @@ package entity;
 import entity.*;
 
 import java.lang.*;
+import java.util.*;
 
 public class Transform extends Component implements Comparable<Transform> {
 	public float x, y, z;
 	public float xScale, yScale;
+	public Transform parent;
+	ArrayList<Transform> children;
 	public Transform(Entity e) {
 		this(e, 0, 0, 0, 1, 1);
+		children = new ArrayList<Transform>();
 	}
 
 	public Transform(Entity e, float x, float y, float z) {
@@ -26,6 +30,11 @@ public class Transform extends Component implements Comparable<Transform> {
 		this.z = z;
 		this.xScale = xScale;
 		this.yScale = yScale;
+	}
+
+	public void attachChild(Transform child) {
+		child.parent = this;
+		children.add(child);
 	}
 
 	public int compareTo(Transform other) {

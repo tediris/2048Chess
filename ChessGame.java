@@ -5,9 +5,13 @@ import game.*;
 
 public class ChessGame extends Game {
 	public static void main(String[] args) {
-		ChessGame game = new ChessGame();
+		ChessGame game = new ChessGame(640, 640);
 		game.run();
 		System.exit(0);
+	}
+
+	public ChessGame(int width, int height) {
+		super(width, height);
 	}
 
 	@Override
@@ -15,7 +19,7 @@ public class ChessGame extends Game {
 		super.initialize();
 		Entity grid = new Entity(this);
 		grid.transform.z = -1;
-		new SpriteRenderer(grid, "grid.png");
-		new GameGrid(grid, 4, 4);
+		new SpriteRenderer(grid, "grid5.png");
+		new GameGrid(grid, 5, 5);
 	}
 }

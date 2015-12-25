@@ -23,6 +23,9 @@ public class Entity implements Comparable<Entity> {
 	}
 
 	public void destroy() {
+		for (Transform t : transform.children) {
+			game.destroy(t.entity);
+		}
 		game.destroy(this);
 	}
 

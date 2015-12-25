@@ -34,7 +34,19 @@ public class SpriteRenderer extends Renderer {
 		}
 	}
 
-	public void render(Graphics g) {
-		g.drawImage(image, (int) this.entity.transform.x, (int) this.entity.transform.y, renderWidth, renderHeight, this.entity.game);
+	public void render(Graphics g, Camera c) {
+		if (entity.transform.parent != null) {
+			renderChild(g, c);
+			return;
+		}
+		g.drawImage(image, (int) (entity.transform.x + c.transform.x),
+		(int) (entity.transform.y + c.transform.y),
+		renderWidth, renderHeight, this.entity.game);
+	}
+
+	public void renderChild(Graphics g, Camera c) {
+		int drawX = (int) (entity.transform.x + c.transform.x + entity.transform.parent.x);
+		int drawY = (int) (entity.transform.y + c.transform.y + entity.transform.parent.y);
+		g.drawImage(image, drawX, drawY, renderWidth, renderHeight, this.entity.game);
 	}
 }

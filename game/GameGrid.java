@@ -15,7 +15,8 @@ public class GameGrid extends Component {
 	int tileSize;
 	Tile[][] entityGrid;
 	Tile[][] oldGrid;
-	int[] randomChoice = {0, 1, 1, 2, 3};
+	int[] randomChoice = Tile.BASIC;
+	int shieldCount;
 	Random rgen;
 
 	public GameGrid(Entity e, int width, int height) {
@@ -29,9 +30,29 @@ public class GameGrid extends Component {
 		tileSize = 128;
 		rgen = new Random();
 		// for now, add a king in the middle
-		addEntity(new Bow(this.entity.game), 0, 0);
-		addEntity(new Arrow(this.entity.game), 0, 1);
-		addEntity(new Bow(this.entity.game), 2, 1);
+		addEntity(new King(this.entity.game), 2, 2);
+		//addEntity(new Arrow(this.entity.game), 0, 1);
+		//addEntity(new Bow(this.entity.game), 2, 1);
+	}
+
+	private void initCounts() {
+		shieldCount = 0;
+	}
+
+	private void updateCounts() {
+		initCounts();
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (entityGrid[x][y] == null) continue;
+				if (entityGrid[x][y] instanceof Shield) shieldCount++;
+			}
+		}
+		if (shieldCount > 1) {
+			randomChoice = Tile.DEFENDED;
+		} else {
+			randomChoice = Tile.BASIC;
+		}
+
 	}
 
 	public class Coord {
@@ -148,6 +169,7 @@ public class GameGrid extends Component {
 			if (!possible) {
 				System.out.println("Game over");
 			}
+			updateCounts();
 		}
 	}
 
@@ -198,6 +220,10 @@ public class GameGrid extends Component {
 				entityGrid[x][y].slider.xDest = x * tileSize + entity.transform.x;
 				entityGrid[x][y].slider.yDest = y * tileSize + entity.transform.y;
 				entityGrid[x][y].destroyChildTiles();
+				if (entityGrid[x][y].removeOnUpdate) {
+					entityGrid[x][y].destroySelf();
+					entityGrid[x][y] = null;
+				}
 			}
 		}
 	}

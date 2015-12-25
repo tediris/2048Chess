@@ -20,6 +20,7 @@ public class Game extends JFrame {
 	Insets insets;
 
 	public InputHandler input;
+	public Camera camera;
 
 	public ArrayList<Entity> entities;
 	public ArrayList<Entity> newEntities;
@@ -77,6 +78,8 @@ public class Game extends JFrame {
 		entities = new ArrayList<Entity>();
 		entityCleanup = new ArrayList<Entity>();
 		newEntities = new ArrayList<Entity>();
+
+		camera = new Camera(this);
 	}
 
 	void update() {
@@ -98,7 +101,7 @@ public class Game extends JFrame {
 		Collections.sort(entities);
 		for (Entity e : entities) {
 			if (e.renderer != null) {
-				e.renderer.render(bbg);
+				e.renderer.render(bbg, camera);
 			}
 		}
 		// draw the buffer
