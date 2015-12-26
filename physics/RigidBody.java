@@ -10,6 +10,7 @@ public class RigidBody extends Component{
 	public Vector2 velocity;
 	public float invMass;
 	public float bounce;
+	public boolean kinematic = false;
 	Vector2 force; // might not be necessary
 	float width, height;
 	public BoundingBox bounds;
@@ -17,8 +18,11 @@ public class RigidBody extends Component{
 	public RigidBody(Entity e, float width, float height) {
 		super(e);
 		e.body = this;
+		e.game.addBody(this);
 		this.width = width;
 		this.height = height;
+		position = new Vector2(e.transform.x, e.transform.y);
+		velocity = new Vector2();
 		invMass = 1f;
 		bounce = 0.5f;
 		bounds = new BoundingBox(
@@ -31,8 +35,9 @@ public class RigidBody extends Component{
 	public void update() {
 		position.x += velocity.x;
 		position.y += velocity.y;
-		entity.transform.x += position.x;
-		entity.transform.y += position.y;
+		entity.transform.x = position.x;
+		entity.transform.y = position.y;
+		bounds.update(position);
 	}
 
 	public static void ResolveCollision(RigidBody a, RigidBody b) {
@@ -51,8 +56,8 @@ public class RigidBody extends Component{
 		j = j / (a.invMass + b.invMass);
 
 		Vector2 impulse = normal.scale(j);
-		a.velocity = Vector2.add(a.velocity, impulse.scale(a.invMass).neg());
-		b.velocity = Vector2.add(b.velocity, impulse.scale(b.invMass));
+		if (!a.kinematic) a.velocity = Vector2.add(a.velocity, impulse.scale(a.invMass).neg());
+		if (!b.kinematic) b.velocity = Vector2.add(b.velocity, impulse.scale(b.invMass));
 	}
 
 	private static float GetCollisionNormal(BoundingBox a, BoundingBox b, Vector2 result) {

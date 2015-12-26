@@ -30,6 +30,8 @@ public class Game extends JFrame {
 	public ArrayList<Entity> entityCleanup;
 
 	public ArrayList<RigidBody> bodies;
+	public ArrayList<RigidBody> newBodies;
+	public ArrayList<RigidBody> bodyCleanup;
 
 	public Game() {
 		/* Empty */
@@ -91,6 +93,8 @@ public class Game extends JFrame {
 		newEntities = new ArrayList<Entity>();
 
 		bodies = new ArrayList<RigidBody>();
+		newBodies = new ArrayList<RigidBody>();
+		bodyCleanup = new ArrayList<RigidBody>();
 
 		camera = new Camera(this);
 	}
@@ -100,8 +104,17 @@ public class Game extends JFrame {
 			e.update();
 		}
 		input.refresh();
+
+		// do a physics update
+		checkCollision();
+
+		// Delete old entities and rigidbodies
 		cleanup();
+		cleanupBodies();
+
+		// Add in all the new queued up entities
 		createNewEntities();
+		createNewBodies();
 	}
 
 	void draw() {
@@ -142,6 +155,45 @@ public class Game extends JFrame {
 			entities.add(e);
 		}
 		newEntities.clear();
+	}
+
+	public void destroyBody(RigidBody b) {
+		bodyCleanup.add(b);
+	}
+
+	public void cleanupBodies() {
+		for (RigidBody b : bodyCleanup) {
+			bodies.remove(b);
+		}
+		bodyCleanup.clear();
+	}
+
+	public void addBody(RigidBody b) {
+		newBodies.add(b);
+	}
+
+	public void createNewBodies() {
+		for (RigidBody b : newBodies) {
+			bodies.add(b);
+		}
+		newBodies.clear();
+	}
+
+	private void checkCollision() {
+		for (int i = 0; i < bodies.size(); i++) {
+			for (int j = i + 1; j < bodies.size(); j++) {
+				RigidBody a, b;
+				a = bodies.get(i);
+				b = bodies.get(j);
+				System.out.println("checking for a collision");
+				if (BoundingBox.Collision(a.bounds, b.bounds)) {
+					RigidBody.ResolveCollision(a, b);
+					a.update();
+					b.update();
+					System.out.println("resolving collision");
+				}
+			}
+		}
 	}
 
 	// use this when running a
