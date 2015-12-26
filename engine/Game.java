@@ -43,25 +43,6 @@ public class Game extends JFrame {
 	public void run() {
 		init();
 
-		while (isRunning) {
-			long time = System.currentTimeMillis();
-			update();
-			draw();
-
-			time = (1000 / fps) - (System.currentTimeMillis() - time);
-			try {
-				Thread.sleep(time);
-			} catch (Exception e) {
-				// TODO: add more robust handling
-			}
-		}
-
-		setVisible(false);
-	}
-
-	public void runExperimental() {
-		init();
-
 		long time = System.currentTimeMillis();
 		int loops;
 

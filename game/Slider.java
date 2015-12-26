@@ -10,7 +10,8 @@ public class Slider extends Component {
 	float xDest;
 	float yDest;
 	int tileSize;
-	float maxVelocity = 64f;
+	float maxVelocity = 1f;
+	static final float slowDown = 0.01f;
 	public Slider(Tile e) {
 		super(e);
 		xDest = e.transform.x;
@@ -22,6 +23,7 @@ public class Slider extends Component {
 
 	@Override
 	public void update() {
+
 		if (Math.abs(entity.transform.x - xDest) > tileSize) {
 			if (entity.transform.x > xDest) {
 				entity.transform.x -= maxVelocity;
@@ -30,7 +32,12 @@ public class Slider extends Component {
 			}
 		} else {
 			// slow down as we get close
-			entity.transform.x = (entity.transform.x + xDest) / 2;
+			float xDist = Math.abs(xDest - entity.transform.x);
+			if (entity.transform.x > xDest) {
+				entity.transform.x -= xDist * slowDown;
+			} else {
+				entity.transform.x += xDist * slowDown;
+			}
 		}
 
 		if (Math.abs(entity.transform.y - yDest) > tileSize) {
@@ -41,7 +48,12 @@ public class Slider extends Component {
 			}
 		} else {
 			// slow down as we get close
-			entity.transform.y = (entity.transform.y + yDest) / 2;
+			float yDist = Math.abs(yDest - entity.transform.y);
+			if (entity.transform.y > yDest) {
+				entity.transform.y -= yDist * slowDown;
+			} else {
+				entity.transform.y += yDist * slowDown;
+			}
 		}
 	}
 }
