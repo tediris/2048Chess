@@ -10,8 +10,8 @@ public class Slider extends Component {
 	float xDest;
 	float yDest;
 	int tileSize;
-	float maxVelocity = 1f;
-	static final float slowDown = 0.01f;
+	float maxVelocity = 64f;
+	static final float slowDown = 0.5f;
 	public Slider(Tile e) {
 		super(e);
 		xDest = e.transform.x;

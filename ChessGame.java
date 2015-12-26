@@ -6,7 +6,7 @@ import game.*;
 public class ChessGame extends Game {
 	public static void main(String[] args) {
 		ChessGame game = new ChessGame(640, 640);
-		game.runExperimental();
+		game.run();
 		System.exit(0);
 	}
 

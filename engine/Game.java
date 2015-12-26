@@ -51,10 +51,15 @@ public class Game extends JFrame {
 			long currTime = System.currentTimeMillis();
 			while (currTime > time && loops < maxSkips) {
 				update();
-				currTime += tick;
+				time += tick;
 				loops++;
 			}
 			draw();
+
+			// yield the processor so the OS doesn't
+			// think we are trying to go too ham
+			Thread.yield();
+			try {Thread.sleep(1);} catch(Exception e) {}
 		}
 
 		setVisible(false);
