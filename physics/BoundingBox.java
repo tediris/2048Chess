@@ -33,7 +33,6 @@ public class BoundingBox {
 		// add this in to boost performance
 		// if (!proximity(a, b)) return false;
 		// Exit with no intersection if found separated along an axis
-		System.out.println("" + a.mid + ": " + b.mid);
 		if (a.max.x < b.min.x || a.min.x > b.max.x) return false;
 		if (a.max.y < b.min.y || a.min.y > b.max.y) return false;
 

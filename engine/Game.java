@@ -103,10 +103,11 @@ public class Game extends JFrame {
 		for (Entity e : entities) {
 			e.update();
 		}
-		input.refresh();
-
-		// do a physics update
+		// Do a physics update
 		checkCollision();
+
+		// Refresh the input handler
+		input.refresh();
 
 		// Delete old entities and rigidbodies
 		cleanup();
@@ -185,12 +186,8 @@ public class Game extends JFrame {
 				RigidBody a, b;
 				a = bodies.get(i);
 				b = bodies.get(j);
-				System.out.println("checking for a collision");
 				if (BoundingBox.Collision(a.bounds, b.bounds)) {
 					RigidBody.ResolveCollision(a, b);
-					a.update();
-					b.update();
-					System.out.println("resolving collision");
 				}
 			}
 		}
