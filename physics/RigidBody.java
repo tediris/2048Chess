@@ -27,6 +27,14 @@ public class RigidBody extends Component{
 
 	}
 
+	@Override
+	public void update() {
+		position.x += velocity.x;
+		position.y += velocity.y;
+		entity.transform.x += position.x;
+		entity.transform.y += position.y;
+	}
+
 	public static void ResolveCollision(RigidBody a, RigidBody b) {
 		Vector2 rv = Vector2.add(b.velocity, a.velocity.neg());
 		Vector2 normal = new Vector2();

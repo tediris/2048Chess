@@ -144,4 +144,18 @@ public class Game extends JFrame {
 		newEntities.clear();
 	}
 
+	// use this when running a
+	// performant game to force updates
+	// to happen faster
+	private void highResTimer() {
+		new Thread() {
+			public void run() {
+				try {
+					Thread.sleep(Long.MAX_VALUE);
+				}
+					catch(Exception exc) {}
+			}
+		}.start();
+	}
+
 }
