@@ -2,6 +2,7 @@ package engine;
 
 import input.InputHandler;
 import entity.*;
+import physics.*;
 
 import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
@@ -13,6 +14,8 @@ public class Game extends JFrame {
 
 	private boolean isRunning = true;
 	private int fps = 30;
+	private int tick = 1000 / fps;
+	private int maxSkips = 10;
 	public int windowWidth = 512;
 	public int windowHeight = 512;
 
@@ -25,6 +28,8 @@ public class Game extends JFrame {
 	public ArrayList<Entity> entities;
 	public ArrayList<Entity> newEntities;
 	public ArrayList<Entity> entityCleanup;
+
+	public ArrayList<RigidBody> bodies;
 
 	public Game() {
 		/* Empty */
@@ -49,6 +54,26 @@ public class Game extends JFrame {
 			} catch (Exception e) {
 				// TODO: add more robust handling
 			}
+		}
+
+		setVisible(false);
+	}
+
+	public void runExperimental() {
+		init();
+
+		long time = System.currentTimeMillis();
+		int loops;
+
+		while (isRunning) {
+			loops = 0;
+			long currTime = System.currentTimeMillis();
+			while (currTime > time && loops < maxSkips) {
+				update();
+				currTime += tick;
+				loops++;
+			}
+			draw();
 		}
 
 		setVisible(false);
@@ -79,6 +104,8 @@ public class Game extends JFrame {
 		entityCleanup = new ArrayList<Entity>();
 		newEntities = new ArrayList<Entity>();
 
+		bodies = new ArrayList<RigidBody>();
+
 		camera = new Camera(this);
 	}
 
@@ -98,6 +125,7 @@ public class Game extends JFrame {
 		bbg.setColor(Color.WHITE);
 		bbg.fillRect(0, 0, windowWidth, windowHeight);
 		// sort the entities
+		// TODO: make this not happen all the time
 		Collections.sort(entities);
 		for (Entity e : entities) {
 			if (e.renderer != null) {
