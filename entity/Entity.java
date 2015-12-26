@@ -1,6 +1,7 @@
 package entity;
 import entity.*;
 import engine.*;
+import physics.*;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public class Entity implements Comparable<Entity> {
 	public Transform transform;
 	public Renderer renderer;
 	public Game game;
+	public RigidBody body;
 	ArrayList<Component> components;
 	public Entity(Game g, String name) {
 		this.game = g;
