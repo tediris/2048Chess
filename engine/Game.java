@@ -92,9 +92,9 @@ public class Game extends JFrame {
 		entityCleanup = new ArrayList<Entity>();
 		newEntities = new ArrayList<Entity>();
 
-		bodies = new ArrayList<RigidBody>();
-		newBodies = new ArrayList<RigidBody>();
-		bodyCleanup = new ArrayList<RigidBody>();
+		// bodies = new ArrayList<RigidBody>();
+		// newBodies = new ArrayList<RigidBody>();
+		// bodyCleanup = new ArrayList<RigidBody>();
 
 		camera = new Camera(this);
 	}
@@ -104,18 +104,18 @@ public class Game extends JFrame {
 			e.update();
 		}
 		// Do a physics update
-		checkCollision();
+		// checkCollision();
 
 		// Refresh the input handler
 		input.refresh();
 
 		// Delete old entities and rigidbodies
 		cleanup();
-		cleanupBodies();
+		//cleanupBodies();
 
 		// Add in all the new queued up entities
 		createNewEntities();
-		createNewBodies();
+		//createNewBodies();
 	}
 
 	void draw() {
@@ -158,40 +158,41 @@ public class Game extends JFrame {
 		newEntities.clear();
 	}
 
-	public void destroyBody(RigidBody b) {
-		bodyCleanup.add(b);
-	}
-
-	public void cleanupBodies() {
-		for (RigidBody b : bodyCleanup) {
-			bodies.remove(b);
-		}
-		bodyCleanup.clear();
-	}
-
-	public void addBody(RigidBody b) {
-		newBodies.add(b);
-	}
-
-	public void createNewBodies() {
-		for (RigidBody b : newBodies) {
-			bodies.add(b);
-		}
-		newBodies.clear();
-	}
-
-	private void checkCollision() {
-		for (int i = 0; i < bodies.size(); i++) {
-			for (int j = i + 1; j < bodies.size(); j++) {
-				RigidBody a, b;
-				a = bodies.get(i);
-				b = bodies.get(j);
-				if (BoundingBox.Collision(a.bounds, b.bounds)) {
-					RigidBody.ResolveCollision(a, b);
-				}
-			}
-		}
-	}
+	// public void destroyBody(RigidBody b) {
+	// 	bodyCleanup.add(b);
+	// }
+	//
+	// public void cleanupBodies() {
+	// 	for (RigidBody b : bodyCleanup) {
+	// 		bodies.remove(b);
+	// 	}
+	// 	bodyCleanup.clear();
+	// }
+	//
+	// public void addBody(RigidBody b) {
+	// 	newBodies.add(b);
+	// }
+	//
+	// public void createNewBodies() {
+	// 	for (RigidBody b : newBodies) {
+	// 		bodies.add(b);
+	// 	}
+	// 	newBodies.clear();
+	// }
+	//
+	// private void checkCollision() {
+	// 	for (int i = 0; i < bodies.size(); i++) {
+	// 		for (int j = i + 1; j < bodies.size(); j++) {
+	// 			RigidBody a, b;
+	// 			a = bodies.get(i);
+	// 			b = bodies.get(j);
+	// 			if (BoundingBox.Collision(a.bounds, b.bounds)) {
+	// 				//System.out.println("Collision");
+	// 				RigidBody.ResolveCollision(a, b);
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	// use this when running a
 	// performant game to force updates

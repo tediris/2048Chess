@@ -9,33 +9,27 @@ import physics.*;
 import java.awt.event.KeyEvent;
 
 public class CharacterController extends Component {
+
+	RigidBody body;
+	InputHandler input;
+
 	public CharacterController(Entity e) {
 		super(e);
+		body = entity.body;
+		input = entity.game.input;
 	}
 
 	@Override
 	public void update() {
-		InputHandler input = entity.game.input;
 		boolean key = false;
 		if (input.isKeyPressed(KeyEvent.VK_RIGHT)) {
 			key = true;
-			entity.body.velocity.x = 5;
-		}
-		if (input.isKeyPressed(KeyEvent.VK_LEFT)) {
+			body.velocity.x = 5;
+		} else if (input.isKeyPressed(KeyEvent.VK_LEFT)) {
 			key = true;
-			entity.body.velocity.x = -5;
+			body.velocity.x = -5;
+		} else {
+			body.velocity.set(0, body.velocity.y);
 		}
-		if (input.isKeyPressed(KeyEvent.VK_DOWN)) {
-			key = true;
-			entity.body.velocity.y = 5;
-		}
-		if (input.isKeyPressed(KeyEvent.VK_UP)) {
-			key = true;
-			entity.body.velocity.y = -5;
-		}
-		if (!key) {
-			entity.body.velocity.set(0, 0);
-		}
-
 	}
 }

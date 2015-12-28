@@ -14,11 +14,15 @@ public class SpriteRenderer extends Renderer {
 	private BufferedImage image;
 	private int imageWidth, imageHeight;
 	private int renderWidth, renderHeight;
+	public int anchorX, anchorY;
+
 	public SpriteRenderer(Entity e, String filename) {
 		super(e);
 		e.renderer = this;
 		this.filename = filename;
 		this.loadImage();
+		anchorX = 0;
+		anchorY = 0;
 	}
 
 	void loadImage() {
@@ -39,14 +43,14 @@ public class SpriteRenderer extends Renderer {
 			renderChild(g, c);
 			return;
 		}
-		g.drawImage(image, (int) (entity.transform.x + c.transform.x),
-		(int) (entity.transform.y + c.transform.y),
+		g.drawImage(image, (int) (entity.transform.x - c.transform.x - anchorX),
+		(int) (entity.transform.y - c.transform.y - anchorY),
 		renderWidth, renderHeight, this.entity.game);
 	}
 
 	public void renderChild(Graphics g, Camera c) {
-		int drawX = (int) (entity.transform.x + c.transform.x + entity.transform.parent.x);
-		int drawY = (int) (entity.transform.y + c.transform.y + entity.transform.parent.y);
+		int drawX = (int) (entity.transform.x - c.transform.x + entity.transform.parent.x);
+		int drawY = (int) (entity.transform.y - c.transform.y + entity.transform.parent.y);
 		g.drawImage(image, drawX, drawY, renderWidth, renderHeight, this.entity.game);
 	}
 }
