@@ -18,7 +18,6 @@ public class SpriteRenderer extends Renderer {
 
 	public SpriteRenderer(Entity e, String filename) {
 		super(e);
-		e.renderer = this;
 		this.filename = filename;
 		this.loadImage();
 		anchorX = 0;
