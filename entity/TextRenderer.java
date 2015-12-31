@@ -14,6 +14,7 @@ public class TextRenderer extends Renderer {
 	public String fontName;
 	public int fontSize;
 	private Font font;
+	private Color color;
 
 	public TextRenderer(Entity e) {
 		this(e, "");
@@ -24,6 +25,7 @@ public class TextRenderer extends Renderer {
 		text = s;
 		fontName = "TimesRoman";
 		fontSize = 20;
+		color = Color.BLACK;
 		updateFont();
 	}
 
@@ -32,12 +34,19 @@ public class TextRenderer extends Renderer {
 	}
 
 	public void render(Graphics g, Camera c) {
+		g.setFont(font);
+		g.setColor(color);
 		if (entity.transform.parent != null) {
 			renderChild(g, c);
 			return;
 		}
-		g.drawString(text, (int) (entity.transform.x - c.transform.x),
-		(int) (entity.transform.y - c.transform.y));
+		int drawX = (int) (entity.transform.x - c.transform.x);
+		int drawY = (int) (entity.transform.y - c.transform.y);
+		g.drawString(text, drawX, drawY);
+	}
+
+	public void setText(String s) {
+		text = s;
 	}
 
 	public void renderChild(Graphics g, Camera c) {

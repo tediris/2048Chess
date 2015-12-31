@@ -21,5 +21,15 @@ public class ChessGame extends Game {
 		grid.transform.z = -1;
 		new SpriteRenderer(grid, "grid5.png");
 		new GameGrid(grid, 5, 5);
+
+
+
+		//UserInput user = new UserInput(this);
+		// Entity user = new Entity(this);
+		// user.transform.x = 200;
+		// user.transform.y = 200;
+		// user.transform.z = 2;
+		// TextRenderer text = new TextRenderer(user);
+		// text.text = "this is a test";
 	}
 }

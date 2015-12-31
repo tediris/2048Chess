@@ -5,6 +5,7 @@ import entity.*;
 import physics.*;
 
 import javax.swing.JFrame;
+import javax.swing.JComponent;
 import java.awt.event.KeyEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -57,7 +58,6 @@ public class Game extends JFrame {
 				loops++;
 			}
 			draw();
-
 			// yield the processor so the OS doesn't
 			// think we are trying to go too ham
 			Thread.yield();
@@ -79,6 +79,7 @@ public class Game extends JFrame {
 			insets.top + windowHeight + insets.bottom);
 		backBuffer = new BufferedImage(windowWidth,
 			windowHeight, BufferedImage.TYPE_INT_RGB);
+
 		input = new InputHandler(this);
 		initialize();
 	}

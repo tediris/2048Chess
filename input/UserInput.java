@@ -5,7 +5,7 @@ import entity.*;
 import engine.*;
 
 public class UserInput extends Entity {
-	private String buffer;
+	public String buffer;
 	private InputHandler input;
 	public UserInput(Game g) {
 		super(g);
@@ -15,6 +15,7 @@ public class UserInput extends Entity {
 
 	@Override
 	public void update() {
+		super.update();
 		for (int i = 0; i < 256; i++) {
 			if (input.isKeyDown(i)) {
 				buffer += (char) i;
