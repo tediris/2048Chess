@@ -14,6 +14,7 @@ public class TextRenderer extends Renderer {
 	public String fontName;
 	public int fontSize;
 	private Font font;
+	private FontMetrics fm;
 	private Color color;
 
 	public TextRenderer(Entity e) {
@@ -36,13 +37,14 @@ public class TextRenderer extends Renderer {
 	public void render(Graphics g, Camera c) {
 		g.setFont(font);
 		g.setColor(color);
+		fm = g.getFontMetrics();
 		if (entity.transform.parent != null) {
 			renderChild(g, c);
 			return;
 		}
 		int drawX = (int) (entity.transform.x - c.transform.x);
 		int drawY = (int) (entity.transform.y - c.transform.y);
-		g.drawString(text, drawX, drawY);
+		g.drawString(text, drawX, drawY + fm.getAscent());
 	}
 
 	public void setText(String s) {
