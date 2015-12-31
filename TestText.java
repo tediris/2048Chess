@@ -25,5 +25,9 @@ public class TestText extends Game {
 		user.transform.z = 2;
 		TextRenderer text = new TextRenderer(user, "HELLO");
 		new UpdateText(user, text);
+		Entity e = new Entity(this);
+		e.transform.x = 10;
+		e.transform.y = 10;
+		new RectRenderer(e, 100, 100);
 	}
 }

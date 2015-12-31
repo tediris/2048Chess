@@ -28,8 +28,14 @@ public class CharacterController extends Component {
 		} else if (input.isKeyPressed(KeyEvent.VK_LEFT)) {
 			key = true;
 			body.velocity.x = -5;
+		// } else if (input.isKeyPressed(KeyEvent.VK_UP)) {
+		// 	key = true;
+		// 	body.velocity.y = -5;
+		// } else if (input.isKeyPressed(KeyEvent.VK_DOWN)) {
+		// 	key = true;
+		// 	body.velocity.y = 5;
 		} else {
-			body.velocity.set(0, body.velocity.y);
+			body.velocity.set(0, entity.body.velocity.y);
 		}
 	}
 }
